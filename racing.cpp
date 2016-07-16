@@ -159,6 +159,7 @@ Racing::loop(float timeStep)
     width = getparam_x_resolution();
     height = getparam_y_resolution();
 
+    std::cout << players[0].pos.x << std::endl;
     fpsCounter.update();
 
     update_audio();
@@ -177,7 +178,7 @@ Racing::loop(float timeStep)
 
 	joy_x = get_joystick_x_axis();
 	joy_y = get_joystick_y_axis();
-// setting joystick
+
 	if ( joy_x > 0.1 ) {
 	    joy_right_turn = true;
 	    joy_turn_fact = joy_x;
@@ -290,7 +291,7 @@ Racing::loop(float timeStep)
     }
 
  
-    // Turning -- see for manipulating the angle?
+    // Turning 
 
     if ( ( m_leftTurn || joy_left_turn )  ^ (m_rightTurn || joy_right_turn ) ) {
 	bool turning_left = (bool) ( m_leftTurn || joy_left_turn );
@@ -387,7 +388,7 @@ Racing::loop(float timeStep)
 	draw_snow(players[0].view.pos);
 	
     draw_trees();
-	// check
+	
     if ( getparam_draw_particles() ) {
 	update_particles( timeStep );
 	draw_particles( players[0] );
