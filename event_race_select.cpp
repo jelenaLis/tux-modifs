@@ -451,13 +451,13 @@ EventRaceSelect::keyPressEvent(SDLKey key)
 			UIMgr.setDirty();
 			return true;
 		case 'c': 
-	 //   	mp_conditionsSSBtn->simulateMouseClick();
+	    	mp_conditionsSSBtn->simulateMouseClick();
 	    	return true;
 		case 'w': 
-	  //  	mp_windSSBtn->simulateMouseClick();
+	    	mp_windSSBtn->simulateMouseClick();
 	    	return true;
 		case 'm':
-	  //  	mp_mirrorSSBtn->simulateMouseClick();
+	    	mp_mirrorSSBtn->simulateMouseClick();
 	    	return true;
 		default:
 			return false;

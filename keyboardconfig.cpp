@@ -25,17 +25,14 @@
 	
 struct KeyMap{
 	SDLKey key;
-	const char *string;
+	char string[10];
 };
 
 static KeyMap keymap[] = {
-	{SDLK_BACKSPACE,"backspace"},
-	{SDLK_TAB,"tab"},
-	{SDLK_CLEAR,"clear"},
-	{SDLK_PAUSE,"pause"},
-	{SDLK_SPACE,"space"},
-	{SDLK_DELETE,"delete"},
-		
+	{SDLK_LEFT,"left"},
+	{SDLK_RIGHT,"right"},
+	{SDLK_UP,"up"},
+	{SDLK_DOWN,"down"},
 	{SDLK_KP0,"keypad 0"},
 	{SDLK_KP1,"keypad 1"},
 	{SDLK_KP2,"keypad 2"},
@@ -49,61 +46,12 @@ static KeyMap keymap[] = {
 	{SDLK_KP_PERIOD,"keypad ."},
 	{SDLK_KP_DIVIDE,"keypad /"},
 	{SDLK_KP_MULTIPLY,"keypad *"},
-	{SDLK_KP_MINUS,"keypad -"},
+	{SDLK_KP_MINUS,"keypad m"},
 	{SDLK_KP_PLUS,"keypad +"},
-	{SDLK_KP_EQUALS,"keypad ="},
-	{SDLK_KP_ENTER,"keypad enter"},
-
-	{SDLK_LEFT,"left"},
-	{SDLK_RIGHT,"right"},
-	{SDLK_UP,"up"},
-	{SDLK_DOWN,"down"},
-	
-	{SDLK_INSERT,"insert"},
-	{SDLK_HOME,"home"},
-	{SDLK_END,"end"},
-	{SDLK_PAGEUP,"page up"},
-	{SDLK_PAGEDOWN,"page down"},
-	
-	{SDLK_F1,"F1"},
-	{SDLK_F2,"F2"},
-	{SDLK_F3,"F3"},
-	{SDLK_F4,"F4"},
-	{SDLK_F5,"F5"},
-	{SDLK_F6,"F6"},
-	{SDLK_F7,"F7"},
-	{SDLK_F8,"F8"},
-	{SDLK_F9,"F9"},
-	{SDLK_F10,"F10"},
-	{SDLK_F11,"F11"},
-	{SDLK_F12,"F12"},
-	{SDLK_F13,"F13"},
-	{SDLK_F14,"F14"},
-	{SDLK_F15,"F15"},
-	
-	{SDLK_NUMLOCK,"numlock"},
-	{SDLK_CAPSLOCK,"capslock"},
-	{SDLK_SCROLLOCK,"scrollock"},
-	{SDLK_RSHIFT,"right shift"},
-	{SDLK_LSHIFT,"left shift"},
-	{SDLK_RCTRL,"right ctrl"},
-	{SDLK_LCTRL,"left ctrl"},
-	{SDLK_RALT,"right alt"},
-	{SDLK_LALT,"left alt"},
-	{SDLK_RMETA,"right meta"},
-	{SDLK_LMETA,"left meta"},
-	{SDLK_LSUPER,"left windows key"},
-	{SDLK_RSUPER,"right windows key"},
-	{SDLK_MODE,"mode shift"},
-	{SDLK_HELP,"help"},
-	{SDLK_PRINT,"print-screen"},
-	{SDLK_SYSREQ,"SysRq"},
-	{SDLK_BREAK,"break"},
-	{SDLK_MENU,"menu"},
-	{SDLK_POWER,"power"},
-	{SDLK_EURO,"euro"}	
+	{SDLK_KP_EQUALS,"keypad ="}	
 };
 
+	
 	
 KeyboardConfig::KeyboardConfig()
 {
@@ -224,31 +172,33 @@ KeyboardConfig::apply()
 void
 KeyboardConfig::setKey(pp::Entry* widget, SDLKey key)
 {
-	widget->setContent(getKey(key));
+	std::string content="";
+	
+	if(key==SDLK_BACKSPACE){
+		widget->setContent(content);
+		return;
+	}else{
+		content = getKey(key);
+	}
+	
+	if (content!=""){
+		widget->setContent(content);
+	}
 }
 
 std::string KeyboardConfig::getKey(SDLKey key)
 {
-	std::string content;
-	
-	for(unsigned int i=0;i<sizeof(keymap)/sizeof(KeyMap);i++){
-		if(key==keymap[i].key){
-			content=keymap[i].string;
-			break;
+	std::string content="";
+	if(isalnum(key)){
+		content=key;
+	}else{
+		for(unsigned int i=0;i<sizeof(keymap)/sizeof(KeyMap);i++){
+			if(key==keymap[i].key){
+				content=keymap[i].string;
+				break;
+			}
 		}
 	}
-		
-	if(content.empty()){
-		if(isprint(key)){
-			content=key;
-		}else{
-			char temp[10];
-			sprintf(temp,"%d",key);
-			content = "key ";
-			content += temp;
-		}
-	}
-	
 	return content;
 }
 
@@ -261,14 +211,6 @@ KeyboardConfig::getKey(std::string& string)
 				return keymap[i].key;
 			}
 		}
-		
-		if(string.length()>5){
-			if(!strncmp("key ",string.c_str(),4)){
-				int key = atoi(string.c_str()+4);
-				return SDLKey(key);				
-			}
-		}
-		
 		return SDLKey(string.c_str()[0]);		
 	}else{
 		return SDLKey(0);
