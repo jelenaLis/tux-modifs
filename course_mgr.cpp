@@ -436,7 +436,7 @@ CourseData* create_race_data ( Tcl_Interp *ip, CONST84 char *string, char **err_
 		*err_msg = "No course specified in race data";
 		goto bail_race_data;
     }
-
+//CHANGE specification for score, herring and time??
     if ( !herring_req_init ||
 	 !time_req_init ||
 	 !score_req_init ) 
@@ -465,7 +465,7 @@ bail_race_data:
 /*---------------------------------------------------------------------------*/
 /*! 
   Creates a CupData object from a Tcl string.
-  \return  New CupData object if successful, or NULL if error
+get_tree_locs  \return  New CupData object if successful, or NULL if error
   \author  jfpatry
   \date    Created:  2000-09-19
   \date    Modified: 2000-09-19

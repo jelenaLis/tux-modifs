@@ -18,11 +18,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
- 
-/***** 
-	This class contains information about item_types as herring and their locations 
-	tree_locations
-******/
 
 #include "course_load.h"
 #include "course_render.h"
@@ -81,9 +76,8 @@ static float      course_width, course_length;
 static float      play_width, play_length;
 static float      course_angle;
 static int           nx, ny;
-static Tree        tree_locs[MAX_TREES]; // check
+static Tree        tree_locs[MAX_TREES];
 static int           num_trees;
-
 static int    *terrain;
 static pp::Vec2d     start_pt;
 
@@ -93,11 +87,11 @@ static std::string courseName;
 
 
 static int           base_height_value;
-static tree_type_t   tree_types[MAX_TREE_TYPES]; // check
+static tree_type_t   tree_types[MAX_TREE_TYPES];
 static int           num_tree_types = 0;
 static int           tree_dep_call = -1;
 
-static Item		item_locs[MAX_ITEMS]; // check
+static Item			item_locs[MAX_ITEMS];
 static item_type_t   item_types[MAX_ITEM_TYPES];
 static int           num_item_types = 0;
 static int           num_items;
@@ -114,8 +108,7 @@ static GLubyte      *vnc_array = NULL;
 float    *get_course_elev_data()    { return elevation; }
 int    *get_course_terrain_data() { return terrain; }
 float      get_course_angle()        { return course_angle; } 
-
-Tree       *get_tree_locs()           { return tree_locs; } // check
+Tree       *get_tree_locs()           { return tree_locs; }
 int           get_num_trees()           { return num_trees; }
 pp::Polyhedron*  get_tree_polyhedron(int type) { return tree_types[type].ph; }
 const char* get_tree_name(int type)       { return tree_types[type].name.c_str(); }
@@ -124,11 +117,11 @@ void          set_start_pt( pp::Vec2d p ) { start_pt = p; }
 std::string& get_course_author() { return courseAuthor; }
 std::string& get_course_name() { return courseName; }
 
-Item       *get_item_locs()           { return item_locs; } // check
+Item       *get_item_locs()           { return item_locs; }
 int           get_num_items()           { return num_items; }
 const char         *get_item_name(int type)   { return item_types[type].name.c_str(); }
 int           get_num_item_types()      { return num_item_types; }
-item_type_t  *get_item_types()          { return item_types; } // check
+item_type_t  *get_item_types()          { return item_types; }
 
 
 
@@ -513,7 +506,7 @@ static int elev_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *argv
 		handle_system_error( 1, "malloc failed" );
     }
 
-    slope = tan( ANGLES_TO_RADIANS( course_angle ) ); // course slope
+    slope = tan( ANGLES_TO_RADIANS( course_angle ) );
 
 	//elev_img->sizeZ=4;
 	
@@ -523,7 +516,7 @@ static int elev_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *argv
 	    ELEV(nx-1-x, ny-1-y) = 
 		( ( elev_img->data[ (x + nx * y) * elev_img->depth + pad ] 
 		    - base_height_value ) / 255.0 ) * elev_scale
-		- (double) (ny-1.-y)/ny * course_length * slope;  // elevation matrix
+		- (double) (ny-1.-y)/ny * course_length * slope;
         } 
         //pad += (nx*elev_img->depth) % 4;
     } 
@@ -825,7 +818,7 @@ static int elev_scale_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char
 
 static int is_tree( unsigned char pixel[], tree_type_t ** which_type )
 {
-	int min_distance = pixel[0] + pixel[1] + pixel[2]; //check
+	int min_distance = pixel[0] + pixel[1] + pixel[2];
     
 	int i;
     int distance;
@@ -863,7 +856,7 @@ static int is_item( unsigned char pixel[], item_type_t ** which_type )
 	}
     }
     
-    return min_distance; // find item_type struct
+    return min_distance;
 }
 
 static int trees_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *argv[]) 
@@ -921,7 +914,7 @@ static int trees_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *arg
 			if(pixel[0]!=0 || pixel[1]!=0 || pixel[2]!=0){
 				
 				best_tree_dist = is_tree ( pixel,&which_tree );
-            	best_item_dist = is_item ( pixel,&which_item ); // check
+            	best_item_dist = is_item ( pixel,&which_item );
 
 	    		if ( best_tree_dist < best_item_dist && which_tree != NULL ) {
         		if (num_trees+1 == MAX_TREES ) {
@@ -966,7 +959,7 @@ static int trees_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *arg
 		for(it=tree_types[i].pos.begin();it!=tree_types[i].pos.end();it++){
 		    tree_locs[num_trees].ray.pt.x = (*it).x;
 	    	tree_locs[num_trees].ray.pt.z = (*it).y;
-	    	tree_locs[num_trees].ray.pt.y = find_y_coord( (*it).x, (*it).y ) + tree_types[i].height; // check
+	    	tree_locs[num_trees].ray.pt.y = find_y_coord( (*it).x, (*it).y ) + tree_types[i].height;
 	    	tree_locs[num_trees].ray.vec = pp::Vec3d( 0, 1, 0);
 
 	   		//tree_locs[num_trees].height = (double)rand()/RAND_MAX*tree_types[i].vary*2;
@@ -991,7 +984,7 @@ static int trees_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *arg
 		
 		for(it=item_types[i].pos.begin();it!=item_types[i].pos.end();it++){
 
-	    	item_locs[num_items].ray.pt.x = (*it).x; // check
+	    	item_locs[num_items].ray.pt.x = (*it).x;
 	    	item_locs[num_items].ray.pt.z = (*it).y;
 	    	item_locs[num_items].ray.pt.y = find_y_coord( (*it).x, (*it).y )
 					    + item_types[i].above_ground;
@@ -1129,7 +1122,7 @@ static int tree_model_cb( ClientData cd, Tcl_Interp *ip,
 			 (char *)0 );
 		return TCL_ERROR;
     }
-	// check
+	
     tree_types[num_tree_types].height = 1.0;
 	tree_types[num_tree_types].diam = 1.0;
     tree_types[num_tree_types].num_trees = 0;
@@ -1217,7 +1210,7 @@ static int item_spec_cb( ClientData cd, Tcl_Interp *ip,
 			 (char *)0 );
 	return TCL_ERROR;
     }
-// check
+
     item_types[num_item_types].diam = .8;
     item_types[num_item_types].height = 0.5;
     item_types[num_item_types].above_ground = 0.0;
@@ -1320,7 +1313,7 @@ static int item_spec_cb( ClientData cd, Tcl_Interp *ip,
 	    CHECK_ARG( "-type", err_msg, item_spec_bail );
 		
 		if(!strcmp(*argv,"herring")){
-			item_types[num_item_types].type=Item::HERRING; //check HERRING
+			item_types[num_item_types].type=Item::HERRING;
 		}else if (!strcmp(*argv,"life")){
 			item_types[num_item_types].type=Item::LIFE;
 		}	
