@@ -83,7 +83,7 @@ typedef struct {
     std::list<pp::Vec2d> pos;
 	pp::Model* model;
 	pp::Polyhedron* ph;
-} tree_type_t;
+} tree_type_t; // here
 
 typedef struct {
     std::string name;
@@ -99,7 +99,7 @@ typedef struct {
     int  num_items;
     bool use_normal;
     pp::Vec3d normal;
-} item_type_t;
+} item_type_t; //here
 
 typedef struct {
     int type;
