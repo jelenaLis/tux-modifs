@@ -2,3 +2,5 @@
 etracer
 .deps
 
+# ignoring libraries leftovers
+/libs
