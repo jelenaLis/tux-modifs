@@ -77,7 +77,7 @@ am_etracer_OBJECTS = ssbutton.$(OBJEXT) checkbox.$(OBJEXT) \
 	winsys.$(OBJEXT) videoconfig.$(OBJEXT) audioconfig.$(OBJEXT) \
 	configmode.$(OBJEXT) configuration.$(OBJEXT) \
 	graphicsconfig.$(OBJEXT) joystickconfig.$(OBJEXT) \
-	keyboardconfig.$(OBJEXT) stuff.$(OBJEXT) game_mgr.$(OBJEXT) \
+	keyboardconfig.$(OBJEXT) stuff.$(OBJEXT) streamer.$(OBJEXT) game_mgr.$(OBJEXT) \
 	bench.$(OBJEXT) callbacks.$(OBJEXT) translation.$(OBJEXT) \
 	alignment.$(OBJEXT) model.$(OBJEXT) model_ac.$(OBJEXT) \
 	font.$(OBJEXT) label.$(OBJEXT) FTCharmap.$(OBJEXT) \
@@ -226,6 +226,8 @@ AM_CPPFLAGS = -DPP_DATADIR=\"$(ppdatadir)\"
 etracer_SOURCES = \
 	lsl_cpp.h				\
 	lsl_c.h					\
+	streamer.h				\
+	streamer.cpp				\
 	ppgltk/ppgltk.h				\
 	ppgltk/listbox.h			\
 	ppgltk/ssbutton.cpp			\
