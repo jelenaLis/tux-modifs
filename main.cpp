@@ -19,6 +19,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+// testing LSL link
+#include "lsl_cpp.h"
+
 #include "course_load.h"
 #include "course_render.h"
 #include "textures.h"
@@ -169,6 +172,13 @@ int main( int argc, char *argv[] )
 	     "it under certain conditions.\n"
 	     "See http://www.gnu.org/copyleft/gpl.html for details.\n\n" );
 
+    // testing LSL
+    
+    // make a new stream_info
+    lsl::stream_info info("MyEventStream","Markers",1,lsl::IRREGULAR_RATE,lsl::cf_string,"myuniquesourceid23443");
+
+    // end testing
+    
 	gameMgr = new GameMgr();
 	Highscore = new highscore();
 	ModelHndl = new model_hndl();
