@@ -10,12 +10,21 @@ lsl::stream_info info("Tuxracer","Markers",1,lsl::IRREGULAR_RATE,lsl::cf_string,
 
 lsl::stream_outlet *outlet;
 
-void Streamer::send(const char* message)
-{
+void Streamer::init() {
+    if (outlet == NULL) {
+        outlet = new lsl::stream_outlet(info);
+        std::cout << "streamer: LSL outlet created" << std::endl;
+    }
+    else {
+        std::cout << "streamer: LSL outlet already created" << std::endl;
+    }
+}
+
+void Streamer::send(const char* message) {
 
     if (outlet == NULL) {
         std::cout << "streamer: first call, init LSL outlet" << std::endl;
-        outlet = new lsl::stream_outlet(info);
+        init();
     }
 
     

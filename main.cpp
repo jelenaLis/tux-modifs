@@ -19,6 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+#include "streamer.h"
 #include "course_load.h"
 #include "course_render.h"
 #include "textures.h"
@@ -171,6 +172,10 @@ int main( int argc, char *argv[] )
 	     "BCI experiment version!\n\n" 
 	     );
 
+
+    // explicit init so stream is created first hand
+    Streamer::init(); 
+    
     gameMgr = new GameMgr();
     Highscore = new highscore();
     ModelHndl = new model_hndl();
