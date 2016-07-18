@@ -1704,6 +1704,11 @@ void solve_ode_system( Player& plyr, float dtime )
     plyr.pos = new_pos;
     plyr.net_force = new_f;
 
+    // fixing speed in Z axis (going forward) once for all
+    std::cout << "player velocity X: " << plyr.vel.x
+	      << ", y: " << plyr.vel.y << ", z: " << plyr.vel.z << std::endl;
+    plyr.vel.z = -10;
+      
     free( x );
     free( y );
     free( z );
