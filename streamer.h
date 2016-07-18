@@ -8,7 +8,8 @@
 class Streamer 
 {
 public:
-    static void send();
+    // message: string to send to OpenViBE, should be one of the code that it knows
+    static void send(const char* message);
 };
 
 

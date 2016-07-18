@@ -174,19 +174,15 @@ int main( int argc, char *argv[] )
 	     "BCI experiment version!\n\n" 
 	     );
 
-    // testing LSL
-    std::string msg = "foo";
-    Streamer::send(); 
-
-    // end testing
+    // sending LSL signal
+    Streamer::send("OVTK_StimulationId_ExperimentStart"); 
     
-	gameMgr = new GameMgr();
-	Highscore = new highscore();
-	ModelHndl = new model_hndl();
+    gameMgr = new GameMgr();
+    Highscore = new highscore();
+    ModelHndl = new model_hndl();
 	
     /* Seed the random number generator */
     srand( time(NULL) );
-
 
     /*
      * Set up the game configuration
