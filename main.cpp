@@ -19,9 +19,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-// testing LSL link
-#include "streamer.h"
-
 #include "course_load.h"
 #include "course_render.h"
 #include "textures.h"
@@ -174,9 +171,6 @@ int main( int argc, char *argv[] )
 	     "BCI experiment version!\n\n" 
 	     );
 
-    // sending LSL signal
-    Streamer::send("OVTK_StimulationId_ExperimentStart"); 
-    
     gameMgr = new GameMgr();
     Highscore = new highscore();
     ModelHndl = new model_hndl();
