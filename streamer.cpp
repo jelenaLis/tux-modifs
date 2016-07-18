@@ -7,7 +7,7 @@
 
 // kinda ugly way to use a kinda singleton. I will not brag about this code.
 lsl::stream_info info("Tuxracer","Markers",1,lsl::IRREGULAR_RATE,lsl::cf_string,"myuniquetuxsourceid23443");
-
+// TODO: could init right here in fact...
 lsl::stream_outlet *outlet;
 
 void Streamer::init() {
@@ -28,6 +28,8 @@ void Streamer::send(const char* message) {
     }
 
     
-    std::cout << "streamer: sending: " << message << std::endl;
-    outlet->push_sample(message);
+    // complicated gymnastic so as to send the whole message for sure (??) 
+    std::string mrk = message;
+    std::cout << "streamer: sending: " << mrk << std::endl;
+    outlet->push_sample(&mrk);
 }

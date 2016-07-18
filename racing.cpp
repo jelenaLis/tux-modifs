@@ -20,6 +20,7 @@
  */
 
 #include "racing.h"
+#include "streamer.h"
 
 #include "ppgltk/audio/audio.h"
 #include "ppgltk/alg/defs.h"
@@ -283,11 +284,17 @@ Racing::loop(float timeStep)
     {
 		players[0].control.jump_charging = true;
 		m_chargeStartTime = gameMgr->time;
+		// for debug
+		std::cout << "jump!" << std::endl;
+		Streamer::send("OVTK_StimulationId_Beep");
     }
 
     if ( ( !m_charging && !joy_charging ) && players[0].control.jump_charging ) {
 		players[0].control.jump_charging = false;
 		players[0].control.begin_jump = true;
+		// for debug
+		std::cout << "jump!" << std::endl;
+		Streamer::send("OVTK_StimulationId_Beep");
     }
 
  
