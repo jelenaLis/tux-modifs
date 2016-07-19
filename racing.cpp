@@ -159,7 +159,10 @@ Racing::loop(float timeStep)
     width = getparam_x_resolution();
     height = getparam_y_resolution();
 
-    std::cout << players[0].pos.x << std::endl;
+    std::cout << "player x: " << players[0].pos.x
+              << ", y: " << players[0].pos.y
+              << ", z: " << players[0].pos.z
+	      << std::endl;
     fpsCounter.update();
 
     update_audio();
@@ -381,7 +384,9 @@ Racing::loop(float timeStep)
     set_course_eye_point( players[0].view.pos );
     setup_course_lighting();
     render_course();
-	
+
+    // find next item of interest and raise flag
+    detect_items();
 	
 	//Draw snow
 	update_snow( timeStep, false, players[0].view.pos );

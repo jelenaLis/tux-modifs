@@ -701,3 +701,29 @@ void draw_fog_plane()
 
     glEnd();
 }
+
+void detect_items() {
+    Item    *itemLocs;
+    int       numItems;
+    int       item_type = -1;
+    const char *    item_name = 0;
+
+    itemLocs = get_item_locs();
+    numItems = get_num_items();
+
+    std::cout << "number of items: " << numItems << std::endl;
+
+    for (int i = 0; i< numItems; i++ ) {
+        std::cout << "item " << i << std::endl;
+
+        item_type = itemLocs[i].type;
+        item_name = get_item_name(item_type);
+
+        std::cout << "type " << item_type << std::endl;
+        std::cout << "name " << item_name << std::endl;
+        std::cout << "x: " << itemLocs[i].ray.pt.x
+		  << ", y: " << itemLocs[i].ray.pt.y
+		  << ", z: " << itemLocs[i].ray.pt.z
+		  << std::endl;
+    }
+}
