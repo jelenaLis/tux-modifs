@@ -49,7 +49,7 @@ extern terrain_tex_t terrain_texture[NUM_TERRAIN_TYPES];
 extern unsigned int num_terrains;
 
 /* Tux's mass (kg) */
-#define TUX_MASS 20
+#define TUX_MASS 100
 
 /* Width of Tux (m) */
 #define TUX_WIDTH 0.45
