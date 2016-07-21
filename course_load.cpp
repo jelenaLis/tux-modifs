@@ -76,6 +76,7 @@ static float      course_width, course_length;
 static float      play_width, play_length;
 static float      course_angle;
 static float      course_speed;
+static float      course_tux_mass;
 static int           nx, ny;
 static Tree        tree_locs[MAX_TREES];
 static int           num_trees;
@@ -110,6 +111,7 @@ float    *get_course_elev_data()    { return elevation; }
 int    *get_course_terrain_data() { return terrain; }
 float      get_course_angle()        { return course_angle; } 
 float      get_course_speed()        { return course_speed; } 
+float      get_course_tux_mass()        { return course_tux_mass; } 
 Tree       *get_tree_locs()           { return tree_locs; }
 int           get_num_trees()           { return num_trees; }
 pp::Polyhedron*  get_tree_polyhedron(int type) { return tree_types[type].ph; }
@@ -487,7 +489,7 @@ static int speed_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *arg
     } 
 
     if ( Tcl_GetDouble( ip, argv[1], &speed ) != TCL_OK ) {
-      print_warning( TCL_WARNING, "could not load course speed, not fixed.");
+      print_warning( TCL_WARNING, "could not load course speed.");
         return TCL_ERROR;
     } 
 
@@ -496,6 +498,26 @@ static int speed_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *arg
     return TCL_OK;
 } 
 
+static int tux_mass_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *argv[]) 
+{
+    double tux_mass;
+
+    if ( argc != 2 ) {
+        Tcl_AppendResult(ip, argv[0], ": invalid number of arguments\n", 
+			 "Usage: ", argv[0], " <tux_mass>",
+			 (char *)0 );
+        return TCL_ERROR;
+    } 
+
+    if ( Tcl_GetDouble( ip, argv[1], &tux_mass ) != TCL_OK ) {
+      print_warning( TCL_WARNING, "could not load tux_mass.");
+        return TCL_ERROR;
+    } 
+
+    course_tux_mass = tux_mass;
+    print_warning( TCL_WARNING, "tux_mass set to %f", tux_mass);
+    return TCL_OK;
+} 
 
 static int elev_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *argv[]) 
 {
@@ -1679,6 +1701,7 @@ void register_course_load_tcl_callbacks( Tcl_Interp *ip )
     Tcl_CreateCommand (ip, "tux_course_dim", course_dim_cb,  0,0);
     Tcl_CreateCommand (ip, "tux_angle",      angle_cb,  0,0);
     Tcl_CreateCommand (ip, "tux_speed",      speed_cb,  0,0);
+    Tcl_CreateCommand (ip, "tux_mass",      tux_mass_cb,  0,0);
     Tcl_CreateCommand (ip, "tux_elev_scale", elev_scale_cb,   0,0);
     Tcl_CreateCommand (ip, "tux_elev",       elev_cb,        0,0);
     Tcl_CreateCommand (ip, "tux_load_terrain",    terrain_cb,   0,0);
