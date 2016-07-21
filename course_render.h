@@ -37,5 +37,6 @@ void set_course_clipping( bool state );
 void set_course_eye_point( pp::Vec3d pt );
 void set_course_fog( bool state);
 void draw_fog_plane();
-
+// find next item of interest and raise flag
+void detect_items();
 #endif

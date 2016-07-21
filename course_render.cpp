@@ -701,3 +701,61 @@ void draw_fog_plane()
 
     glEnd();
 }
+
+void detect_items() {
+    Item    *itemLocs;
+    int       numItems;
+    int       item_type = -1;
+    const char *    item_name = 0;
+
+    itemLocs = get_item_locs();
+    numItems = get_num_items();
+
+    // loop over times, flag the ones tux is onto
+    for (int i = 0; i< numItems; i++ ) {
+      // margin for comparison -- tux not really skiing continuously
+      if (abs(players[0].pos.z - itemLocs[i].ray.pt.z) > 0.01) {
+        continue;
+      }
+
+      // detect if the item is either left or right
+      float play_width, play_length;
+      get_play_dimensions(&play_width, &play_length);
+      float center = play_width / 2;
+      std::cout << "center " << center << std::endl;
+
+      // NB: X inverted as compared to PNG files
+      bool left = true;
+      if (itemLocs[i].ray.pt.x > center) {
+	left = false;
+      }
+      item_type = itemLocs[i].type;
+      switch (item_type) {
+	// herring
+          case 1:
+	    if (left) {
+              std::cout << "FISH_LEFT" << std::endl;
+	    } else {
+              std::cout << "FISH_RIGHT" << std::endl;
+	    }
+	    break;
+	// herringgreen
+          case 6:
+	    if (left) {
+              std::cout << "GREEN_FISH_LEFT" << std::endl;
+	    } else {
+              std::cout << "GREEN_FISH_RIGHT" << std::endl;
+	    }
+	    break;
+       // TODO: flags for begin / end
+          default:
+	    break;
+      }
+
+        std::cout << "type " << item_type << std::endl;
+        std::cout << "x: " << itemLocs[i].ray.pt.x
+		  << ", y: " << itemLocs[i].ray.pt.y
+		  << ", z: " << itemLocs[i].ray.pt.z
+		  << std::endl;
+    }
+}
