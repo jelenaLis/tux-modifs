@@ -721,9 +721,8 @@ void detect_items() {
       }
 
       // detect if the item is either left or right
-      float play_width, play_length;
-      get_play_dimensions(&play_width, &play_length);
-      float center = play_width / 2;
+      pp::Vec2d start_flag = get_start_flag();
+      float center = start_flag.x;
 
       // NB: X inverted as compared to PNG files
       bool left = true;

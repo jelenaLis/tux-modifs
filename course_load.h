@@ -60,6 +60,8 @@ Tree       *get_tree_locs();
 int           get_num_trees();
 void          set_start_pt( pp::Vec2d p );
 pp::Vec2d     get_start_pt();
+// retrieve pos of starting flag (the last one anyway).
+pp::Vec2d     get_start_flag();
 pp::Polyhedron*  get_tree_polyhedron( int type );
 const char         *get_tree_name(int type);
 
@@ -123,7 +125,6 @@ typedef struct {
 
 item_type_t*	get_item_types();
 int		get_num_item_types();
-
 
 extern std::list<int> usedTerrains;
 

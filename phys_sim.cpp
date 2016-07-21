@@ -819,13 +819,12 @@ void check_item_collection( Player& plyr, pp::Vec3d pos )
 	    play_sound( "item_collect", 0 );
 
             // sending a signal depending on item position
-	    float play_width, play_length;
-	    get_play_dimensions(&play_width, &play_length);
-	    float center = play_width / 2;
+            pp::Vec2d start_flag = get_start_flag();
+            float center = start_flag.x;
 	    if (loc.x > center) {
-              Streamer::send("OVTK_StimulationId_Label_03");
-            } else {
               Streamer::send("OVTK_StimulationId_Label_04");
+            } else {
+              Streamer::send("OVTK_StimulationId_Label_03");
 	    }
 
 	}

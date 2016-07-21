@@ -82,6 +82,7 @@ static Tree        tree_locs[MAX_TREES];
 static int           num_trees;
 static int    *terrain;
 static pp::Vec2d     start_pt;
+static pp::Vec2d     start_flag;
 
 
 static std::string courseAuthor;
@@ -117,6 +118,7 @@ int           get_num_trees()           { return num_trees; }
 pp::Polyhedron*  get_tree_polyhedron(int type) { return tree_types[type].ph; }
 const char* get_tree_name(int type)       { return tree_types[type].name.c_str(); }
 pp::Vec2d     get_start_pt()            { return start_pt; }
+pp::Vec2d     get_start_flag()            { return start_flag; }
 void          set_start_pt( pp::Vec2d p ) { start_pt = p; }
 std::string& get_course_author() { return courseAuthor; }
 std::string& get_course_name() { return courseName; }
@@ -212,6 +214,8 @@ static void reset_course()
     nx = ny = -1;
     start_pt.x = 0;
     start_pt.y = 0;
+    start_flag.x = 0;
+    start_flag.y = 0;
     base_height_value = 127; /* 50% grey */
 
     set_course_mirroring( false );
@@ -1049,6 +1053,16 @@ static int trees_cb ( ClientData cd, Tcl_Interp *ip, int argc, CONST84 char *arg
 	    	} else {
 				item_locs[num_items].setDrawable(true);
 	    	}
+
+
+		// saving position of start object
+                if ( item_locs[num_items].type == 3 ) {
+		  start_flag.x = item_locs[num_items].ray.pt.x;
+		  start_flag.y = item_locs[num_items].ray.pt.y;
+		    std::cout << "start x: " << start_flag.x << ", y: " << start_flag.y << std::endl;
+		}
+
+
 	    	num_items++;
 		}
 		item_types[i].pos.clear();
