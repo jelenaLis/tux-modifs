@@ -48,9 +48,6 @@
 extern terrain_tex_t terrain_texture[NUM_TERRAIN_TYPES];
 extern unsigned int num_terrains;
 
-/* Tux's mass (kg) */
-#define TUX_MASS 20
-
 /* Width of Tux (m) */
 #define TUX_WIDTH 0.45
 
@@ -227,9 +224,6 @@ static const double air_log_drag_coeff[] = { 2.25,
 /* Maximum G force applied during jump */
 #define MAX_JUMP_G_FORCE 3
 
-/* Magnitude of force before damage is incurred (N) */
-#define DAMAGE_RESISTANCE ( 4.0 * TUX_MASS * EARTH_GRAV )
-
 /* Damage scaling factor (health/(N*s)) */
 #define DAMAGE_SCALE 9e-8
 
@@ -240,6 +234,8 @@ static const double air_log_drag_coeff[] = { 2.25,
 /* Damage incurred by paddling exertion (health/s) */
 #define PADDLING_DAMAGE 0.02
 
+/* Tux's mass (kg) */
+double tux_mass = 20;
 
 /* Wind velocity */
 static pp::Vec3d wind_vel(250.0/3.6, 0, 0);
@@ -1297,7 +1293,7 @@ static pp::Vec3d calc_net_force( Player& plyr, pp::Vec3d pos,
     }
 
 
-    grav_f = pp::Vec3d( 0, -EARTH_GRAV * TUX_MASS, 0 );
+    grav_f = pp::Vec3d( 0, -EARTH_GRAV * tux_mass, 0 );
 
     dist_from_surface = surf_plane.distance( pos );
 
@@ -1343,9 +1339,9 @@ static pp::Vec3d calc_net_force( Player& plyr, pp::Vec3d pos,
     {
 	jump_f = pp::Vec3d( 
 	    0, 
-	    BASE_JUMP_G_FORCE * TUX_MASS * EARTH_GRAV + 
+	    BASE_JUMP_G_FORCE * tux_mass * EARTH_GRAV + 
 	    plyr.control.jump_amt * 
-	    (MAX_JUMP_G_FORCE-BASE_JUMP_G_FORCE) * TUX_MASS * EARTH_GRAV, 
+	    (MAX_JUMP_G_FORCE-BASE_JUMP_G_FORCE) * tux_mass * EARTH_GRAV, 
 	    0 );
 
     } else {
@@ -1418,7 +1414,7 @@ static pp::Vec3d calc_net_force( Player& plyr, pp::Vec3d pos,
     update_paddling( plyr );
     if ( plyr.control.is_paddling ) {
 	if ( plyr.airborne ) {
-	    paddling_f = pp::Vec3d( 0, 0, -TUX_MASS * EARTH_GRAV / 4.0 );
+	    paddling_f = pp::Vec3d( 0, 0, -tux_mass * EARTH_GRAV / 4.0 );
 	    paddling_f = plyr.orientation.rotate( paddling_f );
 	} else {
 	    paddling_f = ( 
@@ -1559,9 +1555,9 @@ void solve_ode_system( Player& plyr, float dtime )
 	    solver.update_estimate( x, 0, new_vel.x );
 	    solver.update_estimate( y, 0, new_vel.y );
 	    solver.update_estimate( z, 0, new_vel.z );
-	    solver.update_estimate( vx, 0, new_f.x / TUX_MASS );
-	    solver.update_estimate( vy, 0, new_f.y / TUX_MASS );
-	    solver.update_estimate( vz, 0, new_f.z / TUX_MASS );
+	    solver.update_estimate( vx, 0, new_f.x / tux_mass );
+	    solver.update_estimate( vy, 0, new_f.y / tux_mass );
+	    solver.update_estimate( vz, 0, new_f.z / tux_mass );
 
 	    /* Update remaining estimates */
 	    for ( i=1; i < solver.num_estimates(); i++ ) {
@@ -1578,9 +1574,9 @@ void solve_ode_system( Player& plyr, float dtime )
 
 		new_f = calc_net_force( plyr, new_pos, new_vel );
 
-		solver.update_estimate( vx, i, new_f.x / TUX_MASS );
-		solver.update_estimate( vy, i, new_f.y / TUX_MASS );
-		solver.update_estimate( vz, i, new_f.z / TUX_MASS );
+		solver.update_estimate( vx, i, new_f.x / tux_mass );
+		solver.update_estimate( vy, i, new_f.y / tux_mass );
+		solver.update_estimate( vz, i, new_f.z / tux_mass );
 	    }
 
 	    /* Get final values */
@@ -1704,6 +1700,13 @@ void solve_ode_system( Player& plyr, float dtime )
     plyr.pos = new_pos;
     plyr.net_force = new_f;
 
+    // fixing speed in Z axis (going forward) once for all, if option set
+    if (get_course_speed() != 0) {
+        plyr.vel.z = get_course_speed();
+    }
+    std::cout << "player velocity X: " << plyr.vel.x
+	      << ", y: " << plyr.vel.y << ", z: " << plyr.vel.z << std::endl;
+      
     free( x );
     free( y );
     free( z );
@@ -1825,4 +1828,11 @@ void init_physical_simulation()
     }
 
     ode_time_step = -1;
+
+    // update tux mass if set in course
+    if (get_course_tux_mass() != 0) {
+        tux_mass = get_course_tux_mass();
+        std::cout << "set tux mass to " << tux_mass << std::endl;
+    }
+    
 }
