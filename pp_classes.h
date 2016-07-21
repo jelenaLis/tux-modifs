@@ -46,11 +46,13 @@ public:
 private:	
 	bool m_drawable;
 	bool m_collected;
+	// stim associated to item (if any), aleardy raised or not
+	bool m_raised;
 	Type m_type;
 	int m_score;
 
 public:
-	Item():m_collected(false){};
+        Item():m_collected(false), m_raised(false){};
 
 	inline bool isDrawable(){ return m_drawable; };
 	inline void setDrawable(const bool state=true){ m_drawable=state; };

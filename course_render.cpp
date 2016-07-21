@@ -712,11 +712,11 @@ void detect_items() {
     itemLocs = get_item_locs();
     numItems = get_num_items();
 
-    // loop over times, flag the ones tux is onto
+    // loop over times, flag once the ones tux is onto
     for (int i = 0; i< numItems; i++ ) {
       // margin for comparison -- tux not really skiing continuously
       // FIXME: not likely to handle lag well
-      if (abs(players[0].pos.z - itemLocs[i].ray.pt.z) > 0.01) {
+      if (abs(players[0].pos.z - itemLocs[i].ray.pt.z) > 0.01 || itemLocs[i].isCollected()) {
         continue;
       }
 
@@ -768,5 +768,7 @@ void detect_items() {
           default:
 	    break;
       }
+      // it's a goodbye
+      itemLocs[i].setCollected(true);
     }
 }
