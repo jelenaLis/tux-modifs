@@ -47,6 +47,8 @@ void load_course( std::string& course );
 float     *get_course_elev_data();
 int    *get_course_terrain_data();
 float      get_course_angle();
+// tux fixed speed in Z (forward direction) -- 0 if not fixed
+float      get_course_speed();
 void          get_course_dimensions( float *width, float *length );
 void          get_play_dimensions( float *width, float *length );
 float      get_terrain_base_height( float distance );
