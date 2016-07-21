@@ -20,6 +20,7 @@
  */
 
 #include "course_load.h"
+#include "streamer.h"
 #include "course_render.h"
 #include "hier.h"
 #include "hier_util.h"
