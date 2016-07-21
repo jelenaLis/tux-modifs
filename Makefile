@@ -77,7 +77,7 @@ am_etracer_OBJECTS = ssbutton.$(OBJEXT) checkbox.$(OBJEXT) \
 	winsys.$(OBJEXT) videoconfig.$(OBJEXT) audioconfig.$(OBJEXT) \
 	configmode.$(OBJEXT) configuration.$(OBJEXT) \
 	graphicsconfig.$(OBJEXT) joystickconfig.$(OBJEXT) \
-	keyboardconfig.$(OBJEXT) stuff.$(OBJEXT) game_mgr.$(OBJEXT) \
+	keyboardconfig.$(OBJEXT) stuff.$(OBJEXT) streamer.$(OBJEXT) game_mgr.$(OBJEXT) \
 	bench.$(OBJEXT) callbacks.$(OBJEXT) translation.$(OBJEXT) \
 	alignment.$(OBJEXT) model.$(OBJEXT) model_ac.$(OBJEXT) \
 	font.$(OBJEXT) label.$(OBJEXT) FTCharmap.$(OBJEXT) \
@@ -137,7 +137,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS =   -lSM -lICE  -lX11 -lXi -lXext -lXmu -lXt   -ldl -lm -L/usr/lib/x86_64-linux-gnu -lSDL -lSDL_mixer  -lGL -lGLU -L/usr/lib/x86_64-linux-gnu -ltcl8.5 -ldl  -lpthread -lieee -lm -lpng12   -L/usr/lib/x86_64-linux-gnu -lfreetype -lz -lpng12
+LIBS =   -lSM -lICE  -lX11 -lXi -lXext -lXmu -lXt   -ldl -lm -L/usr/lib/x86_64-linux-gnu -lSDL -lSDL_mixer  -lGL -lGLU -L/usr/lib/x86_64-linux-gnu -ltcl8.5 -ldl  -lpthread -lieee -lm -lpng12   -L/usr/lib/x86_64-linux-gnu -lfreetype -lz -lpng12 -L./libs -llsl64
 LTLIBOBJS = 
 MAINT = #
 MAKEINFO = ${SHELL} /home/jelena/Desktop/tux/extremetuxracer-0.4/missing --run makeinfo
@@ -224,6 +224,10 @@ top_builddir = ..
 top_srcdir = ..
 AM_CPPFLAGS = -DPP_DATADIR=\"$(ppdatadir)\"
 etracer_SOURCES = \
+	lsl_cpp.h				\
+	lsl_c.h					\
+	streamer.h				\
+	streamer.cpp				\
 	ppgltk/ppgltk.h				\
 	ppgltk/listbox.h			\
 	ppgltk/ssbutton.cpp			\

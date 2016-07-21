@@ -19,6 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+#include "streamer.h"
 #include "course_load.h"
 #include "course_render.h"
 #include "textures.h"
@@ -167,15 +168,20 @@ int main( int argc, char *argv[] )
 	     "ETRacer comes with ABSOLUTELY NO WARRANTY. "
 	     "This is free software,\nand you are welcome to redistribute "
 	     "it under certain conditions.\n"
-	     "See http://www.gnu.org/copyleft/gpl.html for details.\n\n" );
+	     "See http://www.gnu.org/copyleft/gpl.html for details.\n\n"
+	     "BCI experiment version!\n\n" 
+	     );
 
-	gameMgr = new GameMgr();
-	Highscore = new highscore();
-	ModelHndl = new model_hndl();
+
+    // explicit init so stream is created first hand
+    Streamer::init(); 
+    
+    gameMgr = new GameMgr();
+    Highscore = new highscore();
+    ModelHndl = new model_hndl();
 	
     /* Seed the random number generator */
     srand( time(NULL) );
-
 
     /*
      * Set up the game configuration

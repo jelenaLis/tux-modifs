@@ -20,7 +20,7 @@
  */
 
 #include "splash_screen.h"
-
+#include "streamer.h"
 #include "gl_util.h"
 #include "textures.h"
 
@@ -88,6 +88,8 @@ SplashScreen::mouseButtonReleaseEvent(int button, int x, int y)
 {
 	set_game_mode( GAME_TYPE_SELECT );
 	winsys_post_redisplay();
+        // sending LSL signal whent we're ready to go
+        Streamer::send("OVTK_StimulationId_ExperimentStart"); 
 	return true;
 }
 
@@ -96,5 +98,7 @@ SplashScreen::keyReleaseEvent(SDLKey key)
 {
 	set_game_mode( GAME_TYPE_SELECT );
 	winsys_post_redisplay();
+        // sending LSL signal whent we're ready to go
+        Streamer::send("OVTK_StimulationId_ExperimentStart"); 
 	return true;
 }
