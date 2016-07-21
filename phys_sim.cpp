@@ -816,6 +816,17 @@ void check_item_collection( Player& plyr, pp::Vec3d pos )
 		}
 
 	    play_sound( "item_collect", 0 );
+
+            // sending a signal depending on item position
+	    float play_width, play_length;
+	    get_play_dimensions(&play_width, &play_length);
+	    float center = play_width / 2;
+	    if (loc.x > center) {
+	      std::cout << "get fish right!" << std::endl;
+            } else {
+	      std::cout << "get fish left!" << std::endl;
+	    }
+
 	}
 
     } 
