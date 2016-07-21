@@ -714,9 +714,9 @@ void detect_items() {
 
     // loop over times, flag once the ones tux is onto
     for (int i = 0; i< numItems; i++ ) {
-      // margin for comparison -- tux not really skiing continuously
+      // margin for comparison -- tux not really skiing continuously. 0.6 correspond to bounding box of tux -- see phys_sim.cpp
       // FIXME: not likely to handle lag well
-      if (abs(players[0].pos.z - itemLocs[i].ray.pt.z) > 0.01 || itemLocs[i].isCollected()) {
+      if (abs(players[0].pos.z - itemLocs[i].ray.pt.z) > 0.6 || itemLocs[i].isRaised()) {
         continue;
       }
 
@@ -769,6 +769,6 @@ void detect_items() {
 	    break;
       }
       // it's a goodbye
-      itemLocs[i].setCollected(true);
+      itemLocs[i].setRaised(true);
     }
 }

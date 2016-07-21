@@ -65,6 +65,8 @@ public:
 	
 	inline void setCollected(bool collected=true){m_collected=collected;};
 	inline bool isCollected(){return m_collected;};
+	inline void setRaised(bool raised=true){m_raised=raised;};
+	inline bool isRaised(){return m_raised;};
 };
 
 class Tree : public BaseItem {
