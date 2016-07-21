@@ -165,10 +165,6 @@ Racing::loop(float timeStep)
     width = getparam_x_resolution();
     height = getparam_y_resolution();
 
-    std::cout << "player x: " << players[0].pos.x
-              << ", y: " << players[0].pos.y
-              << ", z: " << players[0].pos.z
-	      << std::endl;
     fpsCounter.update();
 
     update_audio();

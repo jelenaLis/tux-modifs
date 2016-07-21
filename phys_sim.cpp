@@ -822,9 +822,9 @@ void check_item_collection( Player& plyr, pp::Vec3d pos )
 	    get_play_dimensions(&play_width, &play_length);
 	    float center = play_width / 2;
 	    if (loc.x > center) {
-	      std::cout << "get fish right!" << std::endl;
+              Streamer::send("OVTK_StimulationId_Label_03");
             } else {
-	      std::cout << "get fish left!" << std::endl;
+              Streamer::send("OVTK_StimulationId_Label_04");
 	    }
 
 	}
@@ -1715,8 +1715,6 @@ void solve_ode_system( Player& plyr, float dtime )
     if (get_course_speed() != 0) {
         plyr.vel.z = get_course_speed();
     }
-    std::cout << "player velocity X: " << plyr.vel.x
-	      << ", y: " << plyr.vel.y << ", z: " << plyr.vel.z << std::endl;
       
     free( x );
     free( y );

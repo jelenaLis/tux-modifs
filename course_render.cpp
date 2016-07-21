@@ -20,6 +20,7 @@
  */
 
 #include "course_load.h"
+#include "streamer.h"
 #include "course_render.h"
 #include "textures.h"
 #include "phys_sim.h"
@@ -714,6 +715,7 @@ void detect_items() {
     // loop over times, flag the ones tux is onto
     for (int i = 0; i< numItems; i++ ) {
       // margin for comparison -- tux not really skiing continuously
+      // FIXME: not likely to handle lag well
       if (abs(players[0].pos.z - itemLocs[i].ray.pt.z) > 0.01) {
         continue;
       }
@@ -722,7 +724,6 @@ void detect_items() {
       float play_width, play_length;
       get_play_dimensions(&play_width, &play_length);
       float center = play_width / 2;
-      std::cout << "center " << center << std::endl;
 
       // NB: X inverted as compared to PNG files
       bool left = true;
@@ -734,28 +735,39 @@ void detect_items() {
 	// herring
           case 1:
 	    if (left) {
-              std::cout << "FISH_LEFT" << std::endl;
+              Streamer::send("OVTK_StimulationId_Label_01");
 	    } else {
-              std::cout << "FISH_RIGHT" << std::endl;
+              Streamer::send("OVTK_StimulationId_Label_02");
 	    }
 	    break;
 	// herringgreen
           case 6:
 	    if (left) {
-              std::cout << "GREEN_FISH_LEFT" << std::endl;
+              Streamer::send("OVTK_StimulationId_Label_01");
 	    } else {
-              std::cout << "GREEN_FISH_RIGHT" << std::endl;
+              Streamer::send("OVTK_StimulationId_Label_02");
 	    }
 	    break;
-       // TODO: flags for begin / end
+       // purple flag (begin)
+         case 9:
+            Streamer::send("OVTK_GDF_Start_Of_Trial");
+	    if (left) {
+              Streamer::send("OVTK_GDF_Left");
+	    } else {
+              Streamer::send("OVTK_GDF_Right");
+	    }
+	    break;
+       // red flag (end)
+        case 2:
+            Streamer::send("OVTK_GDF_End_Of_Trial");
+	    if (left) {
+              Streamer::send("OVTK_GDF_Up");
+	    } else {
+              Streamer::send("OVTK_GDF_Down");
+	    }
+	    break;
           default:
 	    break;
       }
-
-        std::cout << "type " << item_type << std::endl;
-        std::cout << "x: " << itemLocs[i].ray.pt.x
-		  << ", y: " << itemLocs[i].ray.pt.y
-		  << ", z: " << itemLocs[i].ray.pt.z
-		  << std::endl;
     }
 }

@@ -1,8 +1,5 @@
-position of Tux -- found
-fix velocity
-find the position of fish left and right as different types
 solve the problem of the ski course
 
 create function which calculates the value to add or substract from thershold, from one run to another
 
-implement it all
+- check by how much items detection is robust
