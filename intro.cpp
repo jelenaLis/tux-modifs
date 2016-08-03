@@ -20,6 +20,7 @@
  */
 
 #include "intro.h"
+#include "streamer.h"
 
 #include "ppgltk/audio/audio.h"
 #include "ppgltk/alg/defs.h"
@@ -95,6 +96,9 @@ Intro::Intro()
     }
 
     play_music( "intro" );
+
+    // start of race stim
+    Streamer::send("OVTK_StimulationId_SegmentStart");
 }
 
 Intro::~Intro()

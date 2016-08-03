@@ -20,6 +20,7 @@
  */
 
 #include "game_over.h"
+#include "streamer.h"
 
 #include "ppgltk/ui_mgr.h"
 #include "ppgltk/font.h"
@@ -49,7 +50,10 @@
 
 GameOver::GameOver()
 {
-	halt_sound( "flying_sound" );
+    // end of race stim
+    Streamer::send("OVTK_StimulationId_SegmentStop");
+
+    halt_sound( "flying_sound" );
     halt_sound( "rock_sound" );
     halt_sound( "ice_sound" );
     halt_sound( "snow_sound" );

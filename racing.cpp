@@ -110,16 +110,11 @@ Racing::Racing()
 	init_snow(players[0].view.pos);
 		
     play_music( "racing" );	
-
-    // start of race stim
-    Streamer::send("OVTK_StimulationId_SegmentStart");
 }
 
 
 Racing::~Racing()
 {
-    // end of race stim
-    Streamer::send("OVTK_StimulationId_SegmentStop");
     //todo: stop all sound which are specified by the used theme
     halt_sound( "flying_sound" );
     halt_sound( "rock_sound" );
