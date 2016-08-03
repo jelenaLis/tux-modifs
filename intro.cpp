@@ -81,11 +81,12 @@ Intro::Intro()
     set_view_mode( players[0], ABOVE );
     update_view( players[0], EPS ); 
 
-    // reset all items as collectable 
+    // reset all items as collectable and not raised
     num_items = get_num_items();
     item_locs = get_item_locs();
     for (i = 0; i < num_items; i++ ) {
 		item_locs[i].setCollected(false);
+		item_locs[i].setRaised(false);
 		/*		
 		if(item_locs[i].getTypeCollectable()==Item::COLLECTED){
 	    	item_locs[i].setCollectable(Item::YES);
