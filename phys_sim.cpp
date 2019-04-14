@@ -758,7 +758,7 @@ void check_item_collection( Player& plyr, pp::Vec3d pos )
     pp::Vec3d loc;
     pp::Vec3d distvec;
     float squared_dist;
-    int item_type;
+    int item_type, item_orig_type;
 
     /* These variables are used to cache collision detection results */
     static pp::Vec3d last_collision_pos( -999, -999, -999 );
@@ -818,14 +818,27 @@ void check_item_collection( Player& plyr, pp::Vec3d pos )
 
 	    play_sound( "item_collect", 0 );
 
-            // sending a signal depending on item position
+            // sending a signal depending on item position and item type
             pp::Vec2d start_flag = get_start_flag();
             float center = start_flag.x;
-	    if (loc.x > center) {
-              Streamer::send("OVTK_StimulationId_Label_04");
-            } else {
-              Streamer::send("OVTK_StimulationId_Label_03");
-	    }
+            // consistent with course_render.cpp, but notice that this type depends on loading order from .tcl files
+            item_orig_type = items[i].type;
+            // squid / star
+            if (item_orig_type == 7) {
+                if (loc.x > center) {
+                Streamer::send("OVTK_StimulationId_Label_08");
+                } else {
+                Streamer::send("OVTK_StimulationId_Label_07");
+                }
+            }
+            // everything else (herrings, supposedly -- even dead ones...)
+            else {
+                if (loc.x > center) {
+                Streamer::send("OVTK_StimulationId_Label_04");
+                } else {
+                Streamer::send("OVTK_StimulationId_Label_03");
+                }
+            }
 
 	}
 

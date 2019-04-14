@@ -730,9 +730,18 @@ void detect_items() {
 	left = false;
       }
       item_type = itemLocs[i].type;
+
       switch (item_type) {
 	// herring
           case 1:
+	    if (left) {
+              Streamer::send("OVTK_StimulationId_Label_01");
+	    } else {
+              Streamer::send("OVTK_StimulationId_Label_02");
+	    }
+	    break;
+	// herringred            
+          case 5:
 	    if (left) {
               Streamer::send("OVTK_StimulationId_Label_01");
 	    } else {
@@ -745,6 +754,14 @@ void detect_items() {
               Streamer::send("OVTK_StimulationId_Label_01");
 	    } else {
               Streamer::send("OVTK_StimulationId_Label_02");
+	    }
+	    break;
+	// star / squid
+          case 7:
+	    if (left) {
+              Streamer::send("OVTK_StimulationId_Label_05");
+	    } else {
+              Streamer::send("OVTK_StimulationId_Label_06");
 	    }
 	    break;
        // purple flag (begin)

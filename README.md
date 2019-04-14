@@ -23,3 +23,9 @@ LSL flags:
 
 - collect a herring on the left: OVTK_StimulationId_Label_03
 - collect a herring on the right: OVTK_StimulationId_Label_04
+
+- pass by a squid (star) on the left: OVTK_StimulationId_Label_05
+- pass by a squid (star) on the right: OVTK_StimulationId_Label_06
+
+- collect a squid (star) on the left: OVTK_StimulationId_Label_07
+- collect a squid (star) on the right: OVTK_StimulationId_Label_08
