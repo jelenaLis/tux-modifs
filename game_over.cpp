@@ -69,6 +69,8 @@ GameOver::GameOver()
 
 	if ( !m_aborted ) {
 		gameMgr->updatePlayersScores();
+                Streamer::send("OVTK_StimulationId_Train");
+
     }
 		
     if ( gameMgr->gametype!=GameMgr::PRACTICING ) {

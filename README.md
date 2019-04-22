@@ -10,6 +10,7 @@ LSL flags:
 - when tux jumps: OVTK_StimulationId_Beep
 - when a race starts: OVTK_StimulationId_SegmentStart
 - when a race stops: OVTK_StimulationId_SegmentStop
+- when a race is completed: OVTK_StimulationId_Train
 
 - when a trial starts (passes by start flag): OVTK_GDF_Start_Of_Trial
   - if on left: OVTK_GDF_Left
