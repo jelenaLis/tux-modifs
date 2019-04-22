@@ -10,6 +10,9 @@ How to
 - clone this repository in place of src
 - copy the ".deps" hidden folder from the old src to the new one
 - "make" inside src to update etracer
+- one more step mising before starting! download this  https://ftp.igh.cnrs.fr/pub/ubuntu-ports/pool/universe/e/extremetuxracer/extremetuxracer-data_0.4-5ubuntu1_all.deb and replace it with the existing file you have (that is in your etracer-src folder)
+- then install it with "sudo dpkg -i name of the downloaded file"
+- to assure no updates write "sudo apt-mark hold  extremetuxracer-data"
 - use "launch.sh" to run the game
 
 Tested on ubuntu 14.04 and 16.04
