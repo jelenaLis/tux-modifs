@@ -30,6 +30,6 @@ void Streamer::send(const char* message) {
     
     // complicated gymnastic so as to send the whole message for sure (??) 
     std::string mrk = message;
-    std::cout << "streamer: sending: " << mrk << std::endl;
+    //std::cout << "streamer: sending: " << mrk << std::endl; // HOTFIX: disable debug output to safe perfs
     outlet->push_sample(&mrk);
 }
